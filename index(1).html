@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+	.red {
+		color: red;
+	}
+  .timer-box {
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    justify-content: space-around;
+    margin: 150px auto;
+    
+  }
+  .timer {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+  }
+  .timer span {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 36px;
+    padding: 20px;
+  }
+  
+</style>
+<body>
+  <div class="timer-box">
+      <div><i>Input Date</i><span id="inputdate"></span></div>
+    <div id="timer" class="timer">
+        <div><i>Days</i><span id="days"></span></div>
+        <div><i>Hours</i><span id="hours"></span></div>
+        <div><i>Minutes</i><span id="minutes"></span></div>
+        <div><i>Seconds</i><span id="seconds"></span></div>
+    </div>
+    <div id="timer1" class="timer">
+        <div><i>Days</i><span id="days1"></span></div>
+        <div><i>Hours</i><span id="hours1"></span></div>
+        <div><i>Minutes</i><span id="minutes1"></span></div>
+        <div><i>Seconds</i><span id="seconds1"></span></div>
+    </div>
+    <div id="timer2" class="timer">
+        <div><i>Days</i><span id="days2"></span></div>
+        <div><i>Hours</i><span id="hours2"></span></div>
+        <div><i>Minutes</i><span id="minutes2"></span></div>
+        <div><i>Seconds</i><span id="seconds2"></span></div>
+    </div>
+  </div>
+    <script>
+      function myCounter(year, month, day, hours, minutes) {
+        this.endDate = new Date(year, month, day, hours, minutes);
+        this.currentDate = new Date();
+        this.seconds = (this.endDate - this.currentDate) / 1000;
+        // this.inputDate = document.querySelector("#inputdate");
+	
+	        
+        // inputDate.innerHTML = endDate.toString();
+         
+        if (this.seconds > 0) {
+        	this.minutes = this.seconds / 60;
+        	this.hours = this.minutes / 60;
+        	this.days = this.hours / 24;
+      		this.minutes = (this.hours - Math.floor(this.hours)) * 60;
+      		this.days = Math.floor(this.days);
+      		this.hours =  Math.floor(this.hours) - this.days * 24;
+      		this.seconds = Math.floor((this.minutes - Math.floor(this.minutes)) * 60);
+          this.minutes = Math.floor(this.minutes);
+        }
+        else {
+          alert("Time is over");
+        }
+        this.init();
+      }
+
+      // defining init method
+      myCounter.prototype.init = function () {
+        this.timerId = setInterval(this.setTimePage.bind(this), 1000);
+      
+    	}
+      // defining the counter method
+
+      myCounter.prototype.setTimePage = function () {
+        let days = document.querySelector("#days");
+        let hours = document.querySelector("#hours");
+        let minutes = document.querySelector("#minutes");
+        let seconds = document.querySelector("#seconds");
+
+        let days1 = document.querySelector("#days1");
+        let hours1 = document.querySelector("#hours1");
+        let minutes1 = document.querySelector("#minutes1");
+        let seconds1 = document.querySelector("#seconds1");
+
+        let days2 = document.querySelector("#days2");
+        let hours2 = document.querySelector("#hours2");
+        let minutes2 = document.querySelector("#minutes2");
+        let seconds2 = document.querySelector("#seconds2");
+
+        if (this.minutes <= 5 && this.hours === 0 && this.days === 0) {
+			    if (this.minutes < 5 && this.seconds <= 59 || this.seconds === 0) {
+				  let timerRed = document.querySelector("#timer");
+          let timerRed1 = document.querySelector("#timer1");
+          let timerRed2 = document.querySelector("#timer2");
+
+				  this.timerRed.className = "red";
+          this.timerRed1.className = "red";
+          this.timerRed2.className = "red";
+			  } 
+		    }
+    		if (this.seconds == 0) {
+          if (this.minutes == 0) {
+            if (this.hours == 0) {
+              if(this.days == 0) {
+                showMessage(this.timerId);
+              }
+    				  else {
+                this.days--;
+    				  	this.hours = 24;
+    						this.minutes = 59;
+                this.seconds = 59;
+    				  }
+            }
+    				else {
+              this.hours--;
+    					this.minutes = 59;
+    					this.seconds = 59;
+    				}
+          }
+          else {
+            this.minutes--;
+    				this.seconds = 59;
+    			}
+        }
+        else {
+          this.seconds--;
+        }
+
+      	days.innerHTML = this.days;
+      	hours.innerHTML = this.hours;
+      	minutes.innerHTML = this.minutes;
+      	seconds.innerHTML = this.seconds;
+
+        days1.innerHTML = this.days;
+      	hours1.innerHTML = this.hours;
+      	minutes1.innerHTML = this.minutes;
+      	seconds1.innerHTML = this.seconds;
+
+        days2.innerHTML = this.days;
+      	hours2.innerHTML = this.hours;
+      	minutes2.innerHTML = this.minutes;
+      	seconds2.innerHTML = this.seconds;
+      }
+
+      new myCounter(2019,6,11,21,59);
+      new myCounter(2019,6,12,22,49);
+
+      // window.onload = function()
+      // {
+      //   // counter.init();
+      //   // counter1.init();
+      //   // new myCounter(2019,6,11,19,39);
+      //   new myCounter(2019,6,11,20,45);
+      //
+      // }
+    </script>
+</body>
+</html>
