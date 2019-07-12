@@ -7,11 +7,11 @@
     <title>Document</title>
 </head>
 <style>
-	.red {
+	.timer-expired {
 		color: red;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    font-size: 40px;
-    padding: 10px;
+    font-size: 36px;
+    padding: 20px;
 	}
   .timer-box {
     display: flex;
@@ -26,21 +26,19 @@
     flex-flow: row nowrap;
     justify-content: center;
     align-items: center;
-  }
-  .timer {
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     font-size: 36px;
     padding: 20px;
   }
-
+  
 </style>
 <body>
   <div class="timer-box">
-    <div id="timer1" class="timer">
+    <div id="timer-one" class="timer">
     </div>
-    <div id="timer2" class="timer">
+    <div id="timer-two" class="timer">
     </div>
-    <div id="timer3" class="timer">
+    <div id="timer-three" class="timer">
       </div>
   </div>
     <script>
@@ -60,7 +58,7 @@
           let seconds = Math.floor((distance % (1000 * 60)) / 1000);
           if ((distance / 1000) < 300) {
             let timerRed = document.getElementById(timer);
-            timerRed.className = "red";
+            timerRed.className = "timer-expired";
           }
 
           document.getElementById(timer).innerHTML = day + ":" + hours + ":"
@@ -72,12 +70,12 @@
           }
         }, 1000);
       }
-      let counter1 = new Counter("Jul 12, 2019 11:02:55");
-      counter1.showTimePage('timer1')
-      let counter2 = new Counter("Jul 12, 2019 10:53:15");
-      counter2.showTimePage('timer2')
-      let counter3 = new Counter("Jul 12, 2019 10:59:15");
-      counter3.showTimePage('timer3')
+      let counterOne = new Counter("Jul 12, 2019 12:20:55");
+      counterOne.showTimePage('timer-one')
+      let counterTwo = new Counter("Jul 12, 2019 12:17:15");
+      counterTwo.showTimePage('timer-two')
+      let counterThree = new Counter("Jul 12, 2019 12:59:15");
+      counterThree.showTimePage('timer-three')
 
     </script>
 </body>

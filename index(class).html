@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+	.timer-expired {
+		color: red;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 36px;
+    padding: 20px;
+	}
+  .timer-box {
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    justify-content: space-around;
+    margin: 150px auto;
+
+  }
+  .timer {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 36px;
+    padding: 20px;
+  }
+  
+</style>
+<body>
+  <div class="timer-box">
+    <div id="timer-one" class="timer">
+    </div>
+    <div id="timer-two" class="timer">
+    </div>
+    <div id="timer-three" class="timer">
+      </div>
+  </div>
+    <script>
+      class Counter{
+        constructor(data) { 
+          this.endDate = new Date(data).getTime();
+        }
+          // defining the counter method
+          showTimePage (timer) {
+            let time = this.endDate
+            let x = setInterval(function() {
+            let currentDate = new Date().getTime();
+            let distance = time - currentDate;
+            let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            let day = Math.floor(distance / (1000 * 60 * 60 * 24));
+            let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            if ((distance / 1000) < 300) {
+              let timerRed = document.getElementById(timer);
+              timerRed.className = "timer-expired";
+            }
+
+            document.getElementById(timer).innerHTML = day + ":" + hours + ":"
+              + minutes + ":" + seconds;
+          
+            if (distance < 0) {
+              clearInterval(x);
+              document.getElementById(timer).innerHTML = "EXPIRED";
+            }
+        }, 1000);
+          }
+      }
+
+      class CounterTwo extends Counter {
+        constructor(data) {
+          super(data);
+        }
+      }
+      
+      class CounterThree extends Counter {
+        constructor(data){
+          super(data);
+        }
+      }
+     
+      let counter1 = new Counter("Jul 12, 2019 12:20:55");
+      counter1.showTimePage('timer-one')
+      let counterTwo = new CounterTwo("Jul 12, 2019 12:17:15");
+      counterTwo.showTimePage('timer-two')
+      let counterThree = new CounterThree("Jul 12, 2019 11:59:15");
+      counterThree.showTimePage('timer-three')
+
+   </script>
+</body>
+</html>
